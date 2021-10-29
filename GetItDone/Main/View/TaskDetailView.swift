@@ -97,7 +97,6 @@ struct TaskDetailView: View {
                             if locationToggle {
                                 VStack {
                                     Text(mapVM.address)
-                                        .lineLimit(0)
                                         .multilineTextAlignment(.leading)
                                 }
                             }
@@ -115,7 +114,7 @@ struct TaskDetailView: View {
                     
                     Divider()
                     if locationToggle {
-                        map
+                        MapView()
                             .ignoresSafeArea()
                     }
                 }
@@ -176,60 +175,10 @@ extension TaskDetailView {
         task.timestamp = currentTimestamp
         taskVM.saveTask()
     }
-    
-    
-    private var map: some View {
-        
-        ZStack(alignment: .top) {
-            
-            Map(coordinateRegion: $mapVM.region, interactionModes: .all, showsUserLocation: true, annotationItems: mapVM.places) { place in
-                MapAnnotation(coordinate: place.place.location!.coordinate) {
-                    
-                }
-            }
-            .ignoresSafeArea()
-            
-            VStack {
-                SearchField(searchField: $mapVM.searchText)
-                    .padding(.horizontal)
-                    .padding(.top, 10)
-                if mapVM.searchText != "" && !mapVM.places.isEmpty {
-                    ScrollView {
-                        VStack(spacing: 10) {
-                            ForEach(mapVM.places) { place in
-                                Text(place.place.name ?? "No name")
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.leading)
-                                Divider()
-                            }
-                        }
-                    }
-                    .background(Color.theme.background).opacity(0.8)
-                    .cornerRadius(15)
-                    .padding(.horizontal, 15)
-                }
-            }
-        }
-        .onChange(of: mapVM.searchText) { Value in
-            let delay = 0.3
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                if Value == mapVM.searchText {
-                    self.mapVM.searchLocation()
-                }
-            }
-        }
-    }
 }
 
 
-//    var taskName: Binding<String> {
-//        Binding<String>  {
-//            return self.task.name ?? ""
-//        } set: { newName in
-//            self.task.name = newName
-//        }
-//    }
+
 
 
 

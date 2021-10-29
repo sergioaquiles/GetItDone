@@ -11,7 +11,6 @@ import CoreData
 class TaskViewModel: ObservableObject {
    
     
-    
     @Published var savedTasks: [Tasks] =  []
        
     let container: NSPersistentContainer
