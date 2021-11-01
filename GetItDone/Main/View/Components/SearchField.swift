@@ -18,7 +18,11 @@ struct SearchField: View {
                     .foregroundColor(searchField.isEmpty ? .gray : Color.theme.darkYellow)
                 
                 TextField("Search...", text: $searchField)
+                    .keyboardType(.default)
+                    .disableAutocorrection(true)
                     .foregroundColor(Color.gray)
+                    
+                    
                     .overlay(
                         Image(systemName: "xmark.circle.fill")
                             .foregroundColor(Color.theme.secondaryText)

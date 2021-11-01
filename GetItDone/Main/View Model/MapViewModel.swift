@@ -13,7 +13,6 @@ class MapViewModel:  NSObject, ObservableObject, CLLocationManagerDelegate {
     
     var locationManager = CLLocationManager()
     
-    //@Published var mapView = MKMapView()
     @Published var region = MKCoordinateRegion()
     
     @Published var address = ""
@@ -29,7 +28,7 @@ class MapViewModel:  NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         isLocationEnable()
     }
-        
+    
     func isLocationEnable() {
         
         if CLLocationManager.locationServicesEnabled() {
@@ -54,14 +53,21 @@ class MapViewModel:  NSObject, ObservableObject, CLLocationManagerDelegate {
             })
         }
     }
-
-//    func selectPlace(place: Place) {
-//        searchText = ""
-//        guard let coordinate  = place.place.location?.coordinate else {return}
-//        
-//        let pointAnnotation = MKPointAnnotation()
-//        
-//    }
+    
+    func selectPlace(place: Place) {
+        searchText = ""
+        UIApplication.shared.endEditing()
+        guard let coordinate  = place.place.location?.coordinate else {return}
+        getHumanReadableAddress(place.place.location!)
+        print("SELECTED \(address)")
+        
+        places.append(place)
+        print("Annotations on the MAP \(places.count)")
+        
+        region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude, longitude: coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        
+    }
+    
     
     private func checkLocationAuthorization() {
         
@@ -76,7 +82,7 @@ class MapViewModel:  NSObject, ObservableObject, CLLocationManagerDelegate {
             alertItem = AlertContext.denied
             print("You denied your location")
         case .authorizedAlways, .authorizedWhenInUse:
-            locationManager.startUpdatingLocation()
+            locationManager.requestLocation()
         @unknown default:
             break
         }
@@ -85,13 +91,30 @@ class MapViewModel:  NSObject, ObservableObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         guard let userLocation = locations.last else { return }
-               
-            self.region = MKCoordinateRegion(center: userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            self.latitude = userLocation.coordinate.latitude
-            self.longitude = userLocation.coordinate.longitude
         
+        self.region = MKCoordinateRegion(center: userLocation.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        self.latitude = userLocation.coordinate.latitude
+        self.longitude = userLocation.coordinate.longitude
         
-        CLGeocoder().reverseGeocodeLocation(userLocation) { details, error in
+        getHumanReadableAddress(userLocation)
+        
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkLocationAuthorization()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
+    }
+    
+    
+    
+    func getHumanReadableAddress(_ location: CLLocation) {
+        
+              
+        CLGeocoder().reverseGeocodeLocation(location) { details, error in
+            
             
             if error == nil {
                 
@@ -129,12 +152,14 @@ class MapViewModel:  NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        checkLocationAuthorization()
-    }
+}
 
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
+
+struct AddressPreferenceKey: PreferenceKey {
+        
+    static var defaultValue: String = ""
+    
+    static func reduce(value: inout String, nextValue: () -> String) {
+        value = nextValue()
     }
-   
 }

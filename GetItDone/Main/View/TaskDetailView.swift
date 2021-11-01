@@ -12,8 +12,7 @@ struct TaskDetailView: View {
     
     
     @EnvironmentObject var taskVM: TaskViewModel
-    @StateObject var mapVM = MapViewModel()
-    
+    @EnvironmentObject var mapVM: MapViewModel
     
     @Environment(\.presentationMode) var presentationMode
     @StateObject var task: Tasks
@@ -23,12 +22,14 @@ struct TaskDetailView: View {
     @State private var currentTimestamp = Date()
     @State private var currentAlarm = false
     @State private var showMap = false
-    
+    @State var address = ""
+      
     private let priorities = ["Low", "Normal", "High"]
     @State private var showAlert = false
     
     @State var isButtonDateOn = true
     @State var locationToggle = false
+    
     
     var body: some View {
         NavigationView {
@@ -92,7 +93,7 @@ struct TaskDetailView: View {
                                     .font(.system(size: 25))
                                 Text("Location")
                                 Toggle("", isOn: $locationToggle)
-                                
+                                    
                             }
                             if locationToggle {
                                 VStack {
@@ -116,6 +117,7 @@ struct TaskDetailView: View {
                     if locationToggle {
                         MapView()
                             .ignoresSafeArea()
+                            .transition(AnyTransition.scale.animation(.easeIn))
                     }
                 }
             }
@@ -124,7 +126,6 @@ struct TaskDetailView: View {
                 currentPriority = task.priority ?? ""
                 currentAlarm = task.alarm
                 currentTimestamp = task.timestamp ?? Date()
-                
             })
             .navigationTitle("Details")
             .navigationBarTitleDisplayMode(.inline)
