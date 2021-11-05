@@ -44,9 +44,7 @@ class TaskViewModel: ObservableObject {
     }
     
     
-    
-    
-    func addTask(name: String, priority: String, lat: Double? = 0.0, long: Double? = 0.0 ,date: Date? = Date(), time: Date? = Date()) {
+    func addTask(name: String, priority: String, date: Date? = Date(), time: Date? = Date()) {
         let newTask = Tasks(context: container.viewContext)
 
         newTask.id = UUID()
@@ -54,8 +52,6 @@ class TaskViewModel: ObservableObject {
         newTask.priority = priority
         newTask.done = false
         newTask.alarm = false
-        newTask.lat = lat!
-        newTask.long = long!
         newTask.timestamp = date
         newTask.time = time
         saveTask()

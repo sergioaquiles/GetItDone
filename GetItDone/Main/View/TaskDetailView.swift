@@ -12,7 +12,7 @@ struct TaskDetailView: View {
     
     
     @EnvironmentObject var taskVM: TaskViewModel
-    @EnvironmentObject var mapVM: MapViewModel
+    
     
     @Environment(\.presentationMode) var presentationMode
     @StateObject var task: Tasks
@@ -21,9 +21,7 @@ struct TaskDetailView: View {
     @State private var currentPriority = ""
     @State private var currentTimestamp = Date()
     @State private var currentAlarm = false
-    @State private var showMap = false
-    @State var address = ""
-      
+          
     private let priorities = ["Low", "Normal", "High"]
     @State private var showAlert = false
     
@@ -85,23 +83,6 @@ struct TaskDetailView: View {
                                     .datePickerStyle(.compact)
                             }
                         }
-                        
-                        Section {
-                            HStack {
-                                Image(systemName: "location")
-                                    .foregroundColor(Color.theme.secondaryText)
-                                    .font(.system(size: 25))
-                                Text("Location")
-                                Toggle("", isOn: $locationToggle)
-                                    
-                            }
-                            if locationToggle {
-                                VStack {
-                                    Text(mapVM.address)
-                                        .multilineTextAlignment(.leading)
-                                }
-                            }
-                        }
                     }
                     .toolbar {
                         ToolbarItem(placement: .navigationBarTrailing) {
@@ -112,13 +93,6 @@ struct TaskDetailView: View {
                         }
                     }
                     .accentColor(Color.theme.darkYellow)
-                    
-                    Divider()
-                    if locationToggle {
-                        MapView()
-                            .ignoresSafeArea()
-                            .transition(AnyTransition.scale.animation(.easeIn))
-                    }
                 }
             }
             .onAppear(perform: {
@@ -140,7 +114,7 @@ struct TaskDetailView_Previews: PreviewProvider {
             TaskDetailView(task: task.savedTasks[0])
                 .preferredColorScheme(.dark)
                 .environmentObject(TaskViewModel())
-                .environmentObject(MapViewModel())
+                
         }
     }
 }
@@ -150,7 +124,7 @@ extension TaskDetailView {
     private var TrailingNavButton: some View {
         Button {
             if task.alarm {
-                NotificationManager.instance.scheduleNotification(task: task, type: .calendar)
+                NotificationManager.instance.scheduleNotification(task: task)
             }
             taskVM.saveTask()
             feedback.notificationOccurred(.success)

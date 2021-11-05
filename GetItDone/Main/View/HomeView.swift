@@ -3,10 +3,9 @@
 //  MainView
 //
 //  Created by Sergio Cardoso on 14/09/21.
-//  Photo by SUNBEAM PHOTOGRAPHY on Unsplash
 //
-//  Gaelle Marcel
 //
+
 
 import SwiftUI
 import CoreData
@@ -15,21 +14,28 @@ struct HomeView: View {
     
     @StateObject var taskVM = TaskViewModel()
     @State private var isShowTaskView = false
-    @StateObject var mapData = MapViewModel()
+   
     
     var body: some View {
         NavigationView {
-            ZStack {
+            ZStack() {
                 VStack{
                     HeaderView()
-                    Spacer(minLength: 70)
+                    Spacer(minLength: 75)
                     NewTaskButton
                     List{
-                        ForEach(taskVM.savedTasks) { task in
-                            TaskRowView(task: task)
+                        if taskVM.savedTasks.isEmpty && isShowTaskView == false {
+                            Text("You haven't added any task yet. Click the + button to get started! 🧐")
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(Color.theme.accent)
+                        
+                        } else {
+                            ForEach(taskVM.savedTasks) { task in
+                                TaskRowView(task: task)
+                            }
+                            .onDelete(perform: taskVM.deleteTask)
+                            .listRowBackground(Color.theme.background.opacity(0.7))
                         }
-                        .onDelete(perform: taskVM.deleteTask)
-                        .listRowBackground(Color.theme.background.opacity(0.7))
                     }
                     .listStyle(InsetGroupedListStyle())
                     .padding(.vertical, 0)
@@ -44,7 +50,7 @@ struct HomeView: View {
                         }
                     NewTaskView(showNewTaskView: $isShowTaskView)
                         .transition(AnyTransition.scale.animation(.easeIn))
-                        
+                    
                 }
             }
             .onAppear(perform: {
@@ -59,10 +65,8 @@ struct HomeView: View {
             )
         }
         .environmentObject(taskVM)
-        .environmentObject(mapData)
         .onAppear {
             NotificationManager.instance.requestAuthorization()
-            mapData.locationManager.requestWhenInUseAuthorization()
             UIApplication.shared.applicationIconBadgeNumber = 0
         }
         .navigationBarHidden(true)

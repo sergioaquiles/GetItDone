@@ -21,28 +21,27 @@ struct InfoView: View {
             ScrollView {
                 VStack{
                     Spacer(minLength: 60)
-                    Text("APP INFO")
-                        .font(.largeTitle)
-                        .fontWeight(.medium)
-                        .foregroundColor(Color.theme.darkYellow)
-                        .padding(.bottom, 50)
-                    
-                    VStack {
+                    VStack(alignment: .leading) {
+                        Text("APP INFO")
+                            .font(.title)
+                            .fontWeight(.medium)
+                            .foregroundColor(Color.theme.darkYellow)
+                            .padding(.bottom, 30)
+                        
                         rowInfoView(title: "Compatibility", subtitle: "Iphone - IOS 13 or Above")
                         rowInfoView(title: "Version", subtitle: "1.0.0")
                         rowInfoView(title: "Developer", subtitle: "Sergio Aquiles")
                         rowInfoView(title: "Designer", subtitle: "Sergio Aquiles")
-                        
                     }
                     
-                    Text("CREDITS")
-                        .font(.largeTitle)
-                        .fontWeight(.medium)
-                        .foregroundColor(Color.theme.darkYellow)
-                        .padding(.bottom, 50)
-                        .padding(.top, 30)
-                    
                     VStack(alignment: .leading){
+                        Text("CREDITS")
+                            .font(.title)
+                            .fontWeight(.medium)
+                            .foregroundColor(Color.theme.darkYellow)
+                            .padding(.bottom, 30)
+                            .padding(.top, 30)
+                        
                         HStack{
                             Text("Photos:")
                                 .font(.callout)
