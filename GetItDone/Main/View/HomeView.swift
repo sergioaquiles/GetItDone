@@ -3,8 +3,8 @@
 //  MainView
 //
 //  Created by Sergio Cardoso on 14/09/21.
-//
-//
+//  api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+//  a267f2b372edfaa1d5f35d0d1a0c0a68
 
 
 import SwiftUI
@@ -19,9 +19,12 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             ZStack() {
+                
                 VStack{
+                    
                     HeaderView()
                     Spacer(minLength: 75)
+                    
                     NewTaskButton
                     List{
                         if taskVM.savedTasks.isEmpty && isShowTaskView == false {
@@ -53,15 +56,16 @@ struct HomeView: View {
                     
                 }
             }
+            .navigationBarHidden(true)
+            .navigationBarTitleDisplayMode(.inline)
             .onAppear(perform: {
                 UITableView.appearance().backgroundColor = UIColor.clear
                 
             })
-            .navigationBarHidden(true)
             .background(
                 BackgroundImageView()
                     .blur(radius: isShowTaskView ? 8.0 : 0.0, opaque: false)
-                    .ignoresSafeArea(.all)
+                    //.ignoresSafeArea(.all)
             )
         }
         .environmentObject(taskVM)
@@ -69,9 +73,6 @@ struct HomeView: View {
             NotificationManager.instance.requestAuthorization()
             UIApplication.shared.applicationIconBadgeNumber = 0
         }
-        .navigationBarHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
-        
     }
 }
 
@@ -80,6 +81,7 @@ struct MainView_Previews: PreviewProvider {
         NavigationView {
             HomeView()
                 .preferredColorScheme(.dark)
+            
         }
         .navigationBarHidden(true)
     }
