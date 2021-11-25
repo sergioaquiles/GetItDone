@@ -18,7 +18,6 @@ struct NewCheckBoxStyle: ToggleStyle {
                     feedback.notificationOccurred(.success)
                 }
             configuration.label
-                
         }
     }
 }

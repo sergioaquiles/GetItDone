@@ -9,10 +9,11 @@ import SwiftUI
 
 struct HeaderView: View {
     
+    @EnvironmentObject var nm: NetworkingManager
     @State private var showInfoView = false
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading, spacing: 10) {
             
             HStack(spacing: 15) {
                 Text("Get It Done")
@@ -38,16 +39,30 @@ struct HeaderView: View {
                 .sheet(isPresented: $showInfoView) {
                     InfoView()
                 }
-                
             }
-            
             .foregroundColor(Color.theme.accent)
            
-            WeatherView()
+            Button {
+                // weatherDetailView
+            } label: {
+                HStack(spacing: 10) {
+                    if #available(iOS 15.0, *) {
+                        Image(systemName: nm.weather.conditionName)
+                            .font(.body)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(Color.theme.accent, .yellow)
+                    }
+                    Text("\(nm.weather.temperatureString)º")
+                        .font(.body)
+                }
+                .padding(8)
+                .background(
+                    Color.theme.secondaryText.opacity(0.5)
+                )
+                .clipShape(Capsule())
+            }
         }
         .padding()
-        
-        
     }
 }
 
@@ -56,11 +71,7 @@ struct HeaderView_Previews: PreviewProvider {
         Group {
             HeaderView()
                 .previewLayout(.sizeThatFits)
-            HeaderView()
-                .previewLayout(.sizeThatFits)
-                .preferredColorScheme(.dark
-                )
+                .preferredColorScheme(.dark)
         }
-        
     }
 }

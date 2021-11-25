@@ -11,10 +11,13 @@ import MapKit
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
+    static let shared = LocationManager()
+    
     var locationManager = CLLocationManager()
     
     @Published var latitude: CLLocationDegrees = 0.0
     @Published var longitude: CLLocationDegrees = 0.0
+    @Published var location: String = ""
     @Published var alertItem: AlertItem?
     
     override init() {
@@ -51,8 +54,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             locationManager.requestLocation()
             self.latitude = locationManager.location?.coordinate.latitude ?? 0
             self.longitude = locationManager.location?.coordinate.longitude ?? 0
-            print(latitude)
-            print(longitude)
         @unknown default:
             break
         }
@@ -67,6 +68,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         
         self.latitude = userLocation.coordinate.latitude
         self.longitude = userLocation.coordinate.longitude
+        getHumanReadableAddress(userLocation)
         
     }
     
@@ -78,6 +80,29 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         print(error.localizedDescription)
     }
     
+    private func getHumanReadableAddress(_ location: CLLocation) {
+        
+        CLGeocoder().reverseGeocodeLocation(location) { details, error in
+            
+            if error == nil {
+                
+                if let localData = details?.last {
+                    
+                    var city = ""
+                    if localData.locality != nil {
+                        city = localData.locality!
+                    }
+                    
+                    var district = ""
+                    if localData.subLocality != nil {
+                        district = localData.subLocality!
+                    }
+                    
+                    self.location = district+", " + city
+                }
+            }
+        }
+    }
 }
 
 

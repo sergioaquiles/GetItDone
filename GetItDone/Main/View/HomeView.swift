@@ -23,7 +23,7 @@ struct HomeView: View {
                 VStack{
                     
                     HeaderView()
-                    Spacer(minLength: 75)
+                    Spacer(minLength: 55)
                     
                     NewTaskButton
                     List{

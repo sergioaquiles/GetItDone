@@ -12,7 +12,6 @@ struct MaskView: View {
     var bg: Color
     var bgOpacity: Double
     
-    
     var body: some View {
         VStack{
             Spacer()

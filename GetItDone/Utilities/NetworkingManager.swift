@@ -3,16 +3,15 @@
 //  GetItDone
 //
 //  Created by Sergio Cardoso on 20/11/21.
-//
+
 
 import Foundation
 import SwiftUI
-
+import CoreLocation
 
 class NetworkingManager: ObservableObject {
     
-    @Published var weather = WeatherModel(conditionId: 0, cityName: "", temperature: 0)
-    let locationManager = LocationManager()
+    @Published var weather = WeatherModel(conditionId: 200, cityName: "", temperature: 0.0)
     
     
     init() {
@@ -20,12 +19,11 @@ class NetworkingManager: ObservableObject {
     }
     
     func getWeather() {
-        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=\(locationManager.latitude)&lon=\(locationManager.longitude)&appid=a267f2b372edfaa1d5f35d0d1a0c0a68&units=metric") else { return }
-        
+        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=\(LocationManager.shared.latitude)&lon=\(LocationManager.shared.longitude)&appid=a267f2b372edfaa1d5f35d0d1a0c0a68&units=metric") else { return }
         downloadData(from: url) { returnedData in
             if let data = returnedData {
                 guard let newWeather = try? JSONDecoder().decode(WeatherData.self, from: data) else { return }
-                DispatchQueue.main.async {
+                DispatchQueue.main.async {  
                     self.weather.cityName = newWeather.name
                     self.weather.temperature = newWeather.main.temp
                     self.weather.conditionId = newWeather.weather[0].id
@@ -35,8 +33,7 @@ class NetworkingManager: ObservableObject {
         }
     }
     
-    
-    func downloadData(from url: URL, completionHandler: @escaping (_ data: Data?) -> ()) {
+    private func downloadData(from url: URL, completionHandler: @escaping (_ data: Data?) -> ()) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard
                 let data = data,

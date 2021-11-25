@@ -29,7 +29,7 @@ struct InfoView: View {
                             .padding(.bottom, 30)
                         
                         rowInfoView(title: "Compatibility", subtitle: "Iphone - IOS 13 or Above")
-                        rowInfoView(title: "Version", subtitle: "1.0.0")
+                        rowInfoView(title: "Version", subtitle: "0.1.0")
                         rowInfoView(title: "Developer", subtitle: "Sergio Aquiles")
                         rowInfoView(title: "Designer", subtitle: "Sergio Aquiles")
                     }
