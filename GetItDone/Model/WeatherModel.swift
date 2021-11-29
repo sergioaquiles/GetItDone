@@ -13,10 +13,21 @@ struct WeatherModel {
     var conditionId: Int
     var cityName: String
     var temperature: Double
+    var tempMin: Double
+    var tempMax: Double
+    var description: String
+    
     
     var temperatureString: String {
-        return String(format: "%.1f", temperature)
+        return String(format: "%.0f", temperature.rounded())
     }
+    var minimum: String {
+        return String(format: "%.0f", tempMin.rounded())
+    }
+    var maximum: String {
+        return String(format: "%.0f", tempMax.rounded())
+    }
+    
     
     var conditionName: String {
         switch conditionId {

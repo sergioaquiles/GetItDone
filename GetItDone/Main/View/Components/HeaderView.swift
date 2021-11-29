@@ -11,6 +11,7 @@ struct HeaderView: View {
     
     @EnvironmentObject var nm: NetworkingManager
     @State private var showInfoView = false
+    @Binding var showWeather: Bool
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -43,7 +44,7 @@ struct HeaderView: View {
             .foregroundColor(Color.theme.accent)
            
             Button {
-                // weatherDetailView
+                showWeather.toggle()
             } label: {
                 HStack(spacing: 10) {
                     if #available(iOS 15.0, *) {
@@ -61,6 +62,7 @@ struct HeaderView: View {
                 )
                 .clipShape(Capsule())
             }
+            
         }
         .padding()
     }
@@ -68,10 +70,10 @@ struct HeaderView: View {
 
 struct HeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            HeaderView()
-                .previewLayout(.sizeThatFits)
-                .preferredColorScheme(.dark)
-        }
+        HeaderView(showWeather: .constant(false))
+            .previewLayout(.sizeThatFits)
+            .preferredColorScheme(.dark)
+            .environmentObject(NetworkingManager())
+            .environmentObject(LocationManager())
     }
 }

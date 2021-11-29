@@ -11,7 +11,7 @@ import CoreLocation
 
 class NetworkingManager: ObservableObject {
     
-    @Published var weather = WeatherModel(conditionId: 200, cityName: "", temperature: 0.0)
+    @Published var weather = WeatherModel(conditionId: 200, cityName: "", temperature: 0.0, tempMin: 0.0, tempMax: 0.0, description: "")
     
     
     init() {
@@ -27,7 +27,12 @@ class NetworkingManager: ObservableObject {
                     self.weather.cityName = newWeather.name
                     self.weather.temperature = newWeather.main.temp
                     self.weather.conditionId = newWeather.weather[0].id
+                    self.weather.tempMin = newWeather.main.tempMin
+                    self.weather.tempMax = newWeather.main.tempMax
+                    self.weather.description = newWeather.weather[0].description
                     print(newWeather.name)
+                    print(newWeather.main.tempMin)
+                    print(newWeather.main.tempMax)
                 }
             }
         }

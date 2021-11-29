@@ -14,6 +14,8 @@ struct GetItDoneApp: App {
         WindowGroup {
             HomeView(taskVM: TaskViewModel())
                 .environmentObject(NetworkingManager())
+                .environmentObject(LocationManager())
+                
         }
     }
 }

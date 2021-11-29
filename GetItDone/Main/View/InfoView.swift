@@ -56,7 +56,7 @@ struct InfoView: View {
                             .font(.callout)
                             .padding(.bottom, 2)
                             .foregroundColor(Color.theme.secondaryText)
-                        Text("Sunbeam Photography and Gaelle Marcel")
+                        Text("Sunbeam Photographyl, Gaelle Marcel and Steven Erixon")
                             .foregroundColor(Color.theme.secondaryText)
                     }
                     

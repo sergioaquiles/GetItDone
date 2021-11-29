@@ -12,17 +12,18 @@ import CoreData
 
 struct HomeView: View {
     
+    
     @StateObject var taskVM = TaskViewModel()
     @State private var isShowTaskView = false
+    @State private var showWeather = false
    
     
     var body: some View {
         NavigationView {
             ZStack() {
-                
                 VStack{
                     
-                    HeaderView()
+                    HeaderView(showWeather: $showWeather)
                     Spacer(minLength: 55)
                     
                     NewTaskButton
@@ -53,19 +54,27 @@ struct HomeView: View {
                         }
                     NewTaskView(showNewTaskView: $isShowTaskView)
                         .transition(AnyTransition.scale.animation(.easeIn))
-                    
                 }
+                if showWeather {
+                    MaskView(bg: Color.theme.background, bgOpacity: 0.7)
+                        .onTapGesture {
+                            withAnimation {
+                                showWeather = false
+                            }
+                        }
+                    WeatherDetailView()
+                        .transition(AnyTransition.scale.animation(.easeIn))
+                }
+            
             }
             .navigationBarHidden(true)
             .navigationBarTitleDisplayMode(.inline)
             .onAppear(perform: {
                 UITableView.appearance().backgroundColor = UIColor.clear
-                
             })
             .background(
                 BackgroundImageView()
                     .blur(radius: isShowTaskView ? 8.0 : 0.0, opaque: false)
-                    //.ignoresSafeArea(.all)
             )
         }
         .environmentObject(taskVM)
@@ -81,7 +90,9 @@ struct MainView_Previews: PreviewProvider {
         NavigationView {
             HomeView()
                 .preferredColorScheme(.dark)
-            
+                .environmentObject(NetworkingManager())
+                .environmentObject(LocationManager())
+                
         }
         .navigationBarHidden(true)
     }

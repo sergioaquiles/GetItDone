@@ -22,6 +22,7 @@ extension Color {
         let ligthYellow = Color("YellowLight")
         let red = Color("Red")
         let green = Color("Green")
+        let weatherBg = Color("WeatherBg")
         
     }
 }
