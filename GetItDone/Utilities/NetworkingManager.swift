@@ -13,10 +13,9 @@ class NetworkingManager: ObservableObject {
     
     @Published var weather = WeatherModel(conditionId: 200, cityName: "", temperature: 0.0, tempMin: 0.0, tempMax: 0.0, description: "")
     
-    
-    init() {
-        getWeather()
-    }
+//    init() {
+//        getWeather()
+//    }
     
     func getWeather() {
         guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=\(LocationManager.shared.latitude)&lon=\(LocationManager.shared.longitude)&appid=a267f2b372edfaa1d5f35d0d1a0c0a68&units=metric") else { return }
@@ -30,9 +29,7 @@ class NetworkingManager: ObservableObject {
                     self.weather.tempMin = newWeather.main.tempMin
                     self.weather.tempMax = newWeather.main.tempMax
                     self.weather.description = newWeather.weather[0].description
-                    print(newWeather.name)
-                    print(newWeather.main.tempMin)
-                    print(newWeather.main.tempMax)
+                    
                 }
             }
         }

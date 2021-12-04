@@ -10,8 +10,11 @@ import SwiftUI
 struct HeaderView: View {
     
     @EnvironmentObject var nm: NetworkingManager
+    @EnvironmentObject var lm: LocationManager
     @State private var showInfoView = false
+    @State private var showAlert = false
     @Binding var showWeather: Bool
+    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -44,16 +47,22 @@ struct HeaderView: View {
             .foregroundColor(Color.theme.accent)
            
             Button {
-                showWeather.toggle()
+                
+                if lm.locationEnabled {
+                    showWeather.toggle()
+                } else {
+                    showAlert.toggle()
+                }
+                
             } label: {
                 HStack(spacing: 10) {
                     if #available(iOS 15.0, *) {
-                        Image(systemName: nm.weather.conditionName)
+                        Image(systemName: lm.locationEnabled ? nm.weather.conditionName : "questionmark.circle.fill")
                             .font(.body)
                             .symbolRenderingMode(.palette)
                             .foregroundStyle(Color.theme.accent, .yellow)
                     }
-                    Text("\(nm.weather.temperatureString)º")
+                    Text(lm.locationEnabled ? "\(nm.weather.temperatureString)ºC" : "0ºC")
                         .font(.body)
                 }
                 .padding(8)
@@ -62,7 +71,17 @@ struct HeaderView: View {
                 )
                 .clipShape(Capsule())
             }
-            
+            .alert("Location Denied", isPresented: $showAlert) {
+                Button("Ok") {}
+                Button("Settings") {
+                    UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                }
+            } message: {
+                Text("Impossible to check the weather on your location, please go to settings and enable it")
+            }
+        }
+        .onAppear{
+            nm.getWeather()
         }
         .padding()
     }

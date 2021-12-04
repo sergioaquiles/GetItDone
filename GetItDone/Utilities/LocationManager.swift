@@ -18,7 +18,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var latitude: CLLocationDegrees = 0.0
     @Published var longitude: CLLocationDegrees = 0.0
     @Published var location: String = ""
-    @Published var alertItem: AlertItem?
+    @Published var locationEnabled = true
+    
     
     override init() {
         super.init()
@@ -27,13 +28,11 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         isLocationEnable()
     }
     
-    func isLocationEnable() {
+    private func isLocationEnable() {
         
         if CLLocationManager.locationServicesEnabled() {
             checkLocationAuthorization()
-        
         } else {
-            alertItem = AlertContext.locationOff
             print("Impossible to check the weather conditions, turn on your location")
         }
     }
@@ -44,14 +43,16 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
             
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
+            locationEnabled = false
         case .restricted:
-            alertItem = AlertContext.restricted
+            locationEnabled = false
             print("Your location is restricted")
         case .denied:
-            alertItem = AlertContext.denied
+            locationEnabled = false
             print("You denied your location")
         case .authorizedAlways, .authorizedWhenInUse:
             locationManager.requestLocation()
+            locationEnabled = true
             self.latitude = locationManager.location?.coordinate.latitude ?? 0
             self.longitude = locationManager.location?.coordinate.longitude ?? 0
         @unknown default:

@@ -16,7 +16,7 @@ struct HomeView: View {
     @StateObject var taskVM = TaskViewModel()
     @State private var isShowTaskView = false
     @State private var showWeather = false
-   
+
     
     var body: some View {
         NavigationView {
@@ -64,6 +64,7 @@ struct HomeView: View {
                         }
                     WeatherDetailView()
                         .transition(AnyTransition.scale.animation(.easeIn))
+                        
                 }
             
             }

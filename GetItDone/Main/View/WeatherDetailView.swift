@@ -40,9 +40,11 @@ struct WeatherDetailView: View {
                                     .font(.system(size: 75))
                             }
                         }
-                        
-                        Text("\(nm.weather.temperatureString)º")
+                        Text("\(nm.weather.temperatureString)ºC")
                             .font(.system(size: 85, weight: .light, design: .rounded))
+                            .minimumScaleFactor(0.5)
+                            
+                            
                     }
                     Text(nm.weather.description)
                 }
@@ -50,8 +52,11 @@ struct WeatherDetailView: View {
                 Spacer()
             }
         }
-        .frame(width: width - 100, height: height / 5)
+        .frame(width: width - 70, height: 200)
         .cornerRadius(25)
+        .background(
+            RoundedRectangle(cornerRadius: 25).stroke(lineWidth: 2)
+        )
     }
 }
 
