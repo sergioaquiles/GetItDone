@@ -15,39 +15,41 @@ struct WeatherDetailView: View {
     
     var body: some View {
         
-        VStack {
-            HStack {
-                Image(systemName: "location.circle.fill")
-                Text(lm.location)
-            }
-            .padding(.top, 15)
+        ZStack {
+            
+            Circle().fill(Color.black.opacity(0.2))
+                .frame(width: 310, height: 310)
+                .background(.ultraThinMaterial)
+                .clipShape(Circle())
+            Circle().stroke(lineWidth: 20)
+                .foregroundColor(Color.theme.darkYellow.opacity(0.5))
+                .frame(width: 330, height: 330)
             
             VStack {
-                Text("\(nm.weather.temperatureString)ºC")
-                    .font(.system(size: 85, weight: .light, design: .rounded))
-                    .minimumScaleFactor(0.5)
-                Text(nm.weather.description)
-                    .padding(.bottom, 15)
-                if #available(iOS 15.0, *) {
-                    VStack {
-                        Image(systemName: nm.weather.conditionName)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(Color.white, .yellow)
-                            .font(.system(size: 75))
+                HStack {
+                    Image(systemName: "location.circle.fill")
+                    Text(lm.location)
+                }
+                .padding(.top, 15)
+                
+                VStack {
+                    Text("\(nm.weather.temperatureString)ºC")
+                        .font(.system(size: 85, weight: .light, design: .rounded))
+                        .minimumScaleFactor(0.5)
+                    Text(nm.weather.description)
+                        .padding(.bottom, 15)
+                    if #available(iOS 15.0, *) {
+                        VStack {
+                            Image(systemName: nm.weather.conditionName)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(Color.white, .yellow)
+                                .font(.system(size: 75))
+                        }
                     }
                 }
             }
+            .padding(10)
         }
-        .padding(10)
-        .frame(width: 310, height: 310)
-        .background(.ultraThinMaterial)
-        .clipShape(Circle())
-        .background(
-            Circle().stroke(lineWidth: 20).opacity(0.7)
-                .frame(width: 330, height: 330)
-                .background(.ultraThinMaterial)
-                .clipShape(Circle())
-        )
     }
 }
 

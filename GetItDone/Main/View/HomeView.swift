@@ -52,6 +52,7 @@ struct HomeView: View {
                                 isShowTaskView = false
                             }
                         }
+                        
                     NewTaskView(showNewTaskView: $isShowTaskView)
                         .transition(AnyTransition.scale.animation(.easeIn))
                 }
@@ -62,6 +63,7 @@ struct HomeView: View {
                                 showWeather = false
                             }
                         }
+                        
                     WeatherDetailView()
                         .transition(AnyTransition.scale.animation(.easeIn))
                         
