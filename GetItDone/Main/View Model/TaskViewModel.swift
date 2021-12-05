@@ -12,6 +12,10 @@ class TaskViewModel: ObservableObject {
    
     
     @Published var savedTasks: [Tasks] =  []
+    var sortedTasks: [String : [Tasks]] {
+        
+        Dictionary(grouping: savedTasks, by: {$0.timestamp!.formatted(date: .abbreviated, time: .omitted)} )
+    }
        
     let container: NSPersistentContainer
    

@@ -34,8 +34,13 @@ struct HomeView: View {
                                 .foregroundColor(Color.theme.accent)
                         
                         } else {
-                            ForEach(taskVM.savedTasks) { task in
-                                TaskRowView(task: task)
+                            ForEach(taskVM.sortedTasks.keys.sorted(), id:\.self ) { key in
+                                Section(header: Text("\(key)")) {
+                                    ForEach(taskVM.sortedTasks[key]!) { task in
+                                        TaskRowView(task: task)
+                                    }
+                                }
+                                
                             }
                             .onDelete(perform: taskVM.deleteTask)
                             .listRowBackground(Color.theme.background.opacity(0.7))
