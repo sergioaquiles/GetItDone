@@ -12,50 +12,41 @@ struct WeatherDetailView: View {
     
     @EnvironmentObject var nm: NetworkingManager
     @EnvironmentObject var lm: LocationManager
-    private let width = UIScreen.main.bounds.width
-    private let height = UIScreen.main.bounds.height
-    
     
     var body: some View {
-        ZStack{
+        
+        VStack {
+            HStack {
+                Image(systemName: "location.circle.fill")
+                Text(lm.location)
+            }
+            .padding(.top, 15)
             
-            Color.theme.darkYellow.opacity(0.6)
-                .ignoresSafeArea()
-            
-            VStack(alignment: .center) {
-                HStack {
-                    Image(systemName: "location.circle.fill")
-                    Text(lm.location)
-                }
-                .padding(.top, 15)
-                
-                Spacer()
-                VStack {
-                    HStack(spacing: 20) {
-                        if #available(iOS 15.0, *) {
-                            VStack {
-                                Image(systemName: nm.weather.conditionName)
-                                    .symbolRenderingMode(.palette)
-                                    .foregroundStyle(Color.theme.accent, .yellow)
-                                    .font(.system(size: 75))
-                            }
-                        }
-                        Text("\(nm.weather.temperatureString)ºC")
-                            .font(.system(size: 85, weight: .light, design: .rounded))
-                            .minimumScaleFactor(0.5)
-                            
-                            
+            VStack {
+                Text("\(nm.weather.temperatureString)ºC")
+                    .font(.system(size: 85, weight: .light, design: .rounded))
+                    .minimumScaleFactor(0.5)
+                Text(nm.weather.description)
+                    .padding(.bottom, 15)
+                if #available(iOS 15.0, *) {
+                    VStack {
+                        Image(systemName: nm.weather.conditionName)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(Color.white, .yellow)
+                            .font(.system(size: 75))
                     }
-                    Text(nm.weather.description)
                 }
-                
-                Spacer()
             }
         }
-        .frame(width: width - 70, height: 200)
-        .cornerRadius(25)
+        .padding(10)
+        .frame(width: 310, height: 310)
+        .background(.ultraThinMaterial)
+        .clipShape(Circle())
         .background(
-            RoundedRectangle(cornerRadius: 25).stroke(lineWidth: 2)
+            Circle().stroke(lineWidth: 20).opacity(0.7)
+                .frame(width: 330, height: 330)
+                .background(.ultraThinMaterial)
+                .clipShape(Circle())
         )
     }
 }
@@ -63,7 +54,9 @@ struct WeatherDetailView: View {
 
 struct WeatherDetailView_Previews: PreviewProvider {
     static var previews: some View {
+        //HomeView()
         WeatherDetailView()
+            .background(Image("backgroundDark"))
             .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)
             .environmentObject(NetworkingManager())

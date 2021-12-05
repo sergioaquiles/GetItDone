@@ -60,7 +60,7 @@ struct HeaderView: View {
                         Image(systemName: lm.locationEnabled ? nm.weather.conditionName : "questionmark.circle.fill")
                             .font(.body)
                             .symbolRenderingMode(.palette)
-                            .foregroundStyle(Color.theme.accent, .yellow)
+                            .foregroundStyle(Color.white, .yellow)
                     }
                     Text(lm.locationEnabled ? "\(nm.weather.temperatureString)ºC" : "0ºC")
                         .font(.body)
