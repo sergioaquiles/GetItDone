@@ -12,10 +12,7 @@ class TaskViewModel: ObservableObject {
    
     
     @Published var savedTasks: [Tasks] =  []
-    var sortedTask: [Date : [Tasks]] {
-        Dictionary(grouping: savedTasks) { $0.timestamp! }
-    }
-       
+
     let container: NSPersistentContainer
    
     
