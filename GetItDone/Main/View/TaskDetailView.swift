@@ -21,13 +21,10 @@ struct TaskDetailView: View {
     @State private var currentPriority = ""
     @State private var currentTimestamp = Date()
     @State private var currentAlarm = false
-          
+    
     private let priorities = ["Low", "Normal", "High"]
-    @State private var showAlert = false
     
     @State var isButtonDateOn = true
-    @State var locationToggle = false
-    
     
     var body: some View {
         NavigationView {
@@ -50,35 +47,21 @@ struct TaskDetailView: View {
                         }
                         Section {
                             HStack {
-                                Button {
-                                    withAnimation {
-                                        isButtonDateOn.toggle()
+                                HStack {
+                                    Image(systemName: "calendar")
+                                        .foregroundColor(Color.theme.secondaryText)
+                                        .font(.system(size: 25))
+                                    VStack(alignment:.leading) {
+                                        Text("Date")
+                                        if task.alarm {
+                                            Text(task.timestamp ?? Date(), formatter: dateFormatter)
+                                                .font(.system(size: 10))
+                                        }
                                     }
-                                } label: {
                                 }
-                                .overlay(
-                                    HStack {
-                                        Image(systemName: "calendar")
-                                            .foregroundColor(Color.theme.secondaryText)
-                                            .font(.system(size: 25))
-                                        VStack(alignment:.leading) {
-                                            Text("Date")
-                                            if task.alarm {
-                                                Text(task.timestamp ?? Date(), formatter: dateFormatter)
-                                                    .font(.system(size: 10))
-                                            }
-                                        }
-                                    } ,alignment: .leading
-                                )
-                                .disabled(!task.alarm)
                                 Toggle("", isOn: $task.alarm)
-                                    .onChange(of: task.alarm) { newValue in
-                                        if isButtonDateOn == false {
-                                            isButtonDateOn = newValue
-                                        }
-                                    }
                             }
-                            if task.alarm && isButtonDateOn {
+                            if task.alarm {
                                 DatePicker("", selection: $task.timestamp.boundDate, in: Date()...)
                                     .datePickerStyle(.compact)
                             }
@@ -106,7 +89,7 @@ struct TaskDetailView: View {
         }
     }
 }
-    
+
 struct TaskDetailView_Previews: PreviewProvider {
     static let task = TaskViewModel()
     static var previews: some View {
@@ -114,7 +97,7 @@ struct TaskDetailView_Previews: PreviewProvider {
             TaskDetailView(task: task.savedTasks[0])
                 .preferredColorScheme(.dark)
                 .environmentObject(TaskViewModel())
-                
+            
         }
     }
 }

@@ -22,7 +22,6 @@ struct HomeView: View {
         NavigationView {
             ZStack() {
                 VStack{
-                    
                     HeaderView(showWeather: $showWeather)
                     Spacer(minLength: 55)
                     
@@ -34,10 +33,17 @@ struct HomeView: View {
                                 .foregroundColor(Color.theme.accent)
                         
                         } else {
-                            ForEach(taskVM.savedTasks) { task in
-                                TaskRowView(task: task)
+                            ForEach(taskVM.sortedTasks.keys.sorted(by: {$0 < $1}), id:\.self ) { key in
+                                
+                                Section(header: SectionHeaderView(title: "\(key)")) {
+                                    ForEach(taskVM.sortedTasks[key]!) { task in
+                                        TaskRowView(task: task)
+                                    }
+                                    .onDelete { indexSet in
+                                        taskVM.deleteTask(key: key, indexSet: indexSet)
+                                    }
+                                }
                             }
-                            .onDelete(perform: taskVM.deleteTask)
                             .listRowBackground(Color.theme.background.opacity(0.7))
                         }
                     }
@@ -57,7 +63,7 @@ struct HomeView: View {
                         .transition(AnyTransition.scale.animation(.easeIn))
                 }
                 if showWeather {
-                    MaskView(bg: Color.theme.background, bgOpacity: 0.7)
+                    MaskView(bg: Color.theme.background, bgOpacity: 0.9)
                         .onTapGesture {
                             withAnimation {
                                 showWeather = false
@@ -123,4 +129,5 @@ extension HomeView {
                 .clipShape(Capsule())
         )
     }
+    
 }

@@ -10,16 +10,16 @@ import CoreData
 
 class TaskViewModel: ObservableObject {
    
-    
-    @Published var savedTasks: [Tasks] =  []
 
+    @Published var savedTasks: [Tasks] = []
+    var sortedTasks: [String : [Tasks]] {
+        Dictionary(grouping: savedTasks) { $0.timestamp!.formatted(date: .abbreviated, time: .omitted) }
+    }
+    
     let container: NSPersistentContainer
-   
     
     private let containerName = "GetItDone"
     private let entityName = "Tasks"
-    
-    
     
     init() {
         
@@ -55,16 +55,18 @@ class TaskViewModel: ObservableObject {
         newTask.alarm = false
         newTask.timestamp = date
         newTask.time = time
+   
         saveTask()
     }
     
-    func deleteTask(indexSet: IndexSet) {
+    
+    func deleteTask(key: String, indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
-        let task = savedTasks[index]
+        let task = sortedTasks[key]![index]
         container.viewContext.delete(task)
         saveTask()
-        
     }
+
     
     func updateTask(task: Tasks, name: String, priority: String, timestamp: Date, alarm: Bool, time: Date) {
         task.name = name
@@ -83,7 +85,4 @@ class TaskViewModel: ObservableObject {
             print("Error saving data \(error)")
         }
     }
-    
-  
 }
-
