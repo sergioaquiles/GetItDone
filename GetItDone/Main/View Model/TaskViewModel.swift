@@ -89,7 +89,4 @@ class TaskViewModel: ObservableObject {
             print("Error saving data \(error)")
         }
     }
-    
-  
 }
-
