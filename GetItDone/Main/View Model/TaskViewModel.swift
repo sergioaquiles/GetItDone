@@ -63,21 +63,14 @@ class TaskViewModel: ObservableObject {
         saveTask()
     }
     
-    func deleteTask(indexSet: IndexSet) {
+    
+    func deleteTask(key: String, indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
-        let task = savedTasks[index]
+        let task = sortedTasks[key]![index]
         container.viewContext.delete(task)
         saveTask()
-        
     }
-    
-//    func deleteTask(indexSet: IndexSet) {
-//        guard let index = indexSet.first else { return }
-//        let task = savedTasks[index]
-//        container.viewContext.delete(task)
-//        saveTask()
-//
-//    }
+
     
     func updateTask(task: Tasks, name: String, priority: String, timestamp: Date, alarm: Bool, time: Date) {
         task.name = name

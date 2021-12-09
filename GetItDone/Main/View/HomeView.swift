@@ -22,7 +22,6 @@ struct HomeView: View {
         NavigationView {
             ZStack() {
                 VStack{
-                     
                     HeaderView(showWeather: $showWeather)
                     Spacer(minLength: 55)
                     
@@ -40,9 +39,11 @@ struct HomeView: View {
                                     ForEach(taskVM.sortedTasks[key]!) { task in
                                         TaskRowView(task: task)
                                     }
+                                    .onDelete { indexSet in
+                                        taskVM.deleteTask(key: key, indexSet: indexSet)
+                                    }
                                 }
                             }
-                            .onDelete(perform: taskVM.deleteTask)
                             .listRowBackground(Color.theme.background.opacity(0.7))
                         }
                     }
