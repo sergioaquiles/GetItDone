@@ -11,19 +11,16 @@ import CoreData
 class TaskViewModel: ObservableObject {
    
     
+
     @Published var savedTasks: [Tasks] = []
     var sortedTasks: [String : [Tasks]] {
-        
-        Dictionary(grouping: savedTasks) { $0.timestamp!.formatted(date: .abbreviated, time: .omitted) } 
+        Dictionary(grouping: savedTasks) { $0.timestamp!.formatted(date: .abbreviated, time: .omitted) }
     }
-       
     
     let container: NSPersistentContainer
-   
     
     private let containerName = "GetItDone"
     private let entityName = "Tasks"
-    
     
     init() {
         
