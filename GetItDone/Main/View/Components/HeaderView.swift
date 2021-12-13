@@ -57,10 +57,10 @@ struct HeaderView: View {
             } label: {
                 HStack(spacing: 10) {
                     if #available(iOS 15.0, *) {
-                        Image(systemName: lm.locationEnabled ? nm.weather.conditionName : "questionmark.circle.fill")
-                            .font(.body)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(Color.white, .yellow)
+                        Image(lm.locationEnabled ? nm.weather.conditionName : "sunMax")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 25, height: 25)
                     }
                     Text(lm.locationEnabled ? "\(nm.weather.temperatureString)ºC" : "0ºC")
                         .font(.body)

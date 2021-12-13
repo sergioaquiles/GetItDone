@@ -63,6 +63,10 @@ class TaskViewModel: ObservableObject {
     func deleteTask(key: String, indexSet: IndexSet) {
         guard let index = indexSet.first else { return }
         let task = sortedTasks[key]![index]
+        if task.alarm {
+            let id: String = "\(task.id!)"
+            NotificationManager.instance.cancelNotification(id: id)
+        }
         container.viewContext.delete(task)
         saveTask()
     }

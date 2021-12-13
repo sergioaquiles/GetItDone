@@ -43,7 +43,7 @@ struct WeatherDetailView: View {
                         
                     if #available(iOS 15.0, *) {
                         VStack {
-                            Image(systemName: nm.weather.conditionName)
+                            Image(nm.weather.conditionName)
                                 .symbolRenderingMode(.palette)
                                 .foregroundStyle(Color.white, .yellow)
                                 .font(.system(size: 65))
