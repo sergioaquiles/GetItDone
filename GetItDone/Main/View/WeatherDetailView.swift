@@ -38,7 +38,7 @@ struct WeatherDetailView: View {
                     Text("\(nm.weather.temperatureString)ºC")
                         .font(.system(size: 65, weight: .light, design: .rounded))
                         .minimumScaleFactor(0.5)
-                    Text(nm.weather.description)
+                    Text(nm.weather.description.capitalized)
                         .padding(.bottom, 10)
                         
                     if #available(iOS 15.0, *) {

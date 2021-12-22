@@ -82,9 +82,9 @@ struct HomeView: View {
                 UITableView.appearance().backgroundColor = UIColor.clear
             })
             .background(
-                LinearGradient(colors: [Color.black, Color.gray], startPoint: .topLeading, endPoint: .bottomTrailing)
-//                BackgroundImageView()
-//                    .blur(radius: isShowTaskView ? 8.0 : 0.0, opaque: false)
+//                LinearGradient(colors: [Color.black, Color.gray], startPoint: .topLeading, endPoint: .bottomTrailing)
+                BackgroundImageView()
+                    .blur(radius: isShowTaskView ? 8.0 : 0.0, opaque: false)
                 
             )
         }
