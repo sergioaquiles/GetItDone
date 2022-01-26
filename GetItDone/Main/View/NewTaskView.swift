@@ -30,7 +30,6 @@ struct NewTaskView: View {
                     .frame(height: 55)
                     .background(Color.gray.opacity(0.7))
                     .cornerRadius(10)
-                    
                 Picker("Priority", selection: $priorityType) {
                     ForEach(priorities, id:\.self) {
                         Text($0)

@@ -26,31 +26,22 @@ struct WeatherDetailView: View {
                 .frame(width: 330, height: 330)
             
             VStack {
-                
                 HStack {
                     Image(systemName: "location.circle.fill")
                     Text(lm.location)
                 }
                 .padding(.top, 15)
                 
-                VStack(spacing: 5) {
-                    
-                    Text("\(nm.weather.temperatureString)ºC")
-                        .font(.system(size: 65, weight: .light, design: .rounded))
-                        .minimumScaleFactor(0.5)
-                    Text(nm.weather.description.capitalized)
-                        .padding(.bottom, 10)
-                        
-                    if #available(iOS 15.0, *) {
-                        VStack {
-                            Image(nm.weather.conditionName)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(Color.white, .yellow)
-                                .font(.system(size: 65))
-                        }
-                    }
-                }
+                Text("\(nm.weather.temperatureString)ºC")
+                    .font(.system(size: 65, weight: .light, design: .rounded))
+                    .minimumScaleFactor(0.5)
+                Text(nm.weather.description.capitalized)
+                
+                Image(nm.weather.conditionName)
+                    .resizable()
+                    .scaledToFit()
             }
+            .frame(width: 250, height: 250)
         }
     }
 }

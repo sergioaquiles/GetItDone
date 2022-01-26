@@ -28,6 +28,8 @@ struct WeatherModel {
         return String(format: "%.0f", tempMax.rounded())
     }
     
+    private let time = Calendar.current.component(.hour, from: Date())
+    
     var conditionName: String {
         switch conditionId {
         case 200...232:
@@ -41,34 +43,19 @@ struct WeatherModel {
         case 701...781:
             return "cloudFog"
         case 800:
-            return "sunMax"
+            if time < 18 {
+                return "sunMax"
+            } else {
+                return "moonmax"
+            }
         case 801...804:
-            return "cloud"
+            if time < 18 {
+                return "cloud"
+            } else {
+                return "cloudmoon"
+            }
         default:
             return "cloud"
         }
     }
-    
-    
-//    var conditionName: String {
-//        switch conditionId {
-//        case 200...232:
-//            return "cloud.bolt.fill"
-//        case 300...321:
-//            return "cloud.drizzle.fill"
-//        case 500...531:
-//            return "cloud.rain.fill"
-//        case 600...622:
-//            return "cloud.snow.fill"
-//        case 701...781:
-//            return "cloud.fog.fill"
-//        case 800:
-//            return "sun.max.fill"
-//        case 801...804:
-//            return "cloud.fill"
-//        default:
-//            return "cloud.fill"
-//        }
-//    }
-    
 }

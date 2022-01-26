@@ -12,9 +12,10 @@ import CoreLocation
 class NetworkingManager: ObservableObject {
     
     @Published var weather = WeatherModel(conditionId: 200, cityName: "", temperature: 0.0, tempMin: 0.0, tempMax: 0.0, description: "")
+    let apiKey = "your API key here"
     
     func getWeather() {
-        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=\(LocationManager.shared.latitude)&lon=\(LocationManager.shared.longitude)&appid=a267f2b372edfaa1d5f35d0d1a0c0a68&units=metric") else { return }
+        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=\(LocationManager.shared.latitude)&lon=\(LocationManager.shared.longitude)&appid=\(apiKey)&units=metric") else { return }
         downloadData(from: url) { returnedData in
             if let data = returnedData {
                 guard let newWeather = try? JSONDecoder().decode(WeatherData.self, from: data) else { return }
@@ -29,7 +30,6 @@ class NetworkingManager: ObservableObject {
             }
         }
     }
-    
     private func downloadData(from url: URL, completionHandler: @escaping (_ data: Data?) -> ()) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard

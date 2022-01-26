@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		690C7FD2270801930019373F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69FA8FC42704ADBC00188E22 /* Assets.xcassets */; };
 		692311E7276176EA003668E4 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692311E6276176EA003668E4 /* SectionHeaderView.swift */; };
-		69724ACA2752C4E200ECAB90 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69724AC92752C4E200ECAB90 /* WeatherView.swift */; };
 		698E8D612749B1FB0075B2DA /* WeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E8D602749B1FB0075B2DA /* WeatherModel.swift */; };
 		698E8D632749DD440075B2DA /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698E8D622749DD440075B2DA /* NetworkingManager.swift */; };
 		699213C92708FE72007293C8 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699213C82708FE72007293C8 /* InfoView.swift */; };
@@ -40,7 +39,6 @@
 
 /* Begin PBXFileReference section */
 		692311E6276176EA003668E4 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
-		69724AC92752C4E200ECAB90 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 		698E8D602749B1FB0075B2DA /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		698E8D622749DD440075B2DA /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		699213C82708FE72007293C8 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -179,7 +177,6 @@
 				69FA8FEA2704B2D600188E22 /* TaskRowView.swift */,
 				699213C82708FE72007293C8 /* InfoView.swift */,
 				69BB8F16274F2B7D00F8CD6A /* WeatherDetailView.swift */,
-				69724AC92752C4E200ECAB90 /* WeatherView.swift */,
 				69B0D0472734C92B00FA60A8 /* Launch */,
 				69FA8FF42704B34B00188E22 /* Components */,
 			);
@@ -292,7 +289,6 @@
 				69FA8FDE2704B01400188E22 /* HideKeyboard.swift in Sources */,
 				69FA8FEE2704B2D600188E22 /* TaskDetailView.swift in Sources */,
 				69FA8FF32704B33200188E22 /* TaskViewModel.swift in Sources */,
-				69724ACA2752C4E200ECAB90 /* WeatherView.swift in Sources */,
 				699213C92708FE72007293C8 /* InfoView.swift in Sources */,
 				69FA90042704B3B800188E22 /* Date.swift in Sources */,
 				69FA8FE32704B20900188E22 /* NewCheckBoxStyle.swift in Sources */,

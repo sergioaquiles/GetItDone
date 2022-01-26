@@ -4,7 +4,7 @@
 //
 //  Created by Sergio Cardoso on 14/09/21.
 //  api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-//  a267f2b372edfaa1d5f35d0d1a0c0a68
+// 
 
 
 import SwiftUI
@@ -14,9 +14,9 @@ struct HomeView: View {
     
     
     @StateObject var taskVM = TaskViewModel()
-    @State private var isShowTaskView = false
+    @State private var isShowTaskView = false 
     @State private var showWeather = false
-
+    
     
     var body: some View {
         NavigationView {
@@ -26,12 +26,13 @@ struct HomeView: View {
                     Spacer(minLength: 55)
                     
                     NewTaskButton
+                    
                     List{
                         if taskVM.savedTasks.isEmpty && isShowTaskView == false {
                             Text("You haven't added any task yet. Click the + button to get started! 🧐")
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(Color.theme.accent)
-                        
+                            
                         } else {
                             ForEach(taskVM.sortedTasks.keys.sorted(by: {$0 < $1}), id:\.self ) { key in
                                 
@@ -44,7 +45,7 @@ struct HomeView: View {
                                     }
                                 }
                             }
-                            .listRowBackground(Color.theme.background.opacity(0.7))
+                            .listRowBackground(Color.theme.background.opacity(0.7).blur(radius: 2.0))
                         }
                     }
                     .listStyle(InsetGroupedListStyle())
@@ -58,7 +59,7 @@ struct HomeView: View {
                                 isShowTaskView = false
                             }
                         }
-                        
+                    
                     NewTaskView(showNewTaskView: $isShowTaskView)
                         .transition(AnyTransition.scale.animation(.easeIn))
                 }
@@ -69,12 +70,11 @@ struct HomeView: View {
                                 showWeather = false
                             }
                         }
-                        
+                    
                     WeatherDetailView()
                         .transition(AnyTransition.scale.animation(.easeIn))
-                        
+                    
                 }
-            
             }
             .navigationBarHidden(true)
             .navigationBarTitleDisplayMode(.inline)
@@ -82,10 +82,8 @@ struct HomeView: View {
                 UITableView.appearance().backgroundColor = UIColor.clear
             })
             .background(
-//                LinearGradient(colors: [Color.black, Color.gray], startPoint: .topLeading, endPoint: .bottomTrailing)
                 BackgroundImageView()
-                    .blur(radius: isShowTaskView ? 8.0 : 0.0, opaque: false)
-                
+                    .blur(radius: isShowTaskView || !taskVM.sortedTasks.isEmpty  ? 8.0 : 0.0, opaque: false)
             )
         }
         .environmentObject(taskVM)
@@ -103,12 +101,11 @@ struct MainView_Previews: PreviewProvider {
                 .preferredColorScheme(.dark)
                 .environmentObject(NetworkingManager())
                 .environmentObject(LocationManager())
-                
+            
         }
         .navigationBarHidden(true)
     }
 }
-
 
 extension HomeView {
     
@@ -131,5 +128,4 @@ extension HomeView {
                 .clipShape(Capsule())
         )
     }
-    
 }
