@@ -12,7 +12,7 @@ import CoreLocation
 class NetworkingManager: ObservableObject {
     
     @Published var weather = WeatherModel(conditionId: 200, cityName: "", temperature: 0.0, tempMin: 0.0, tempMax: 0.0, description: "")
-    let apiKey = "a267f2b372edfaa1d5f35d0d1a0c0a68"
+    let apiKey = "YOUR API KEY GOES HERE"
     
     func getWeather() {
         guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=\(LocationManager.shared.latitude)&lon=\(LocationManager.shared.longitude)&appid=\(apiKey)&units=metric") else { return }
