@@ -14,7 +14,6 @@
 		699213C92708FE72007293C8 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699213C82708FE72007293C8 /* InfoView.swift */; };
 		69B0D0462734C21700FA60A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69B0D0452734C21700FA60A8 /* LaunchScreen.storyboard */; };
 		69BB8F17274F2B7D00F8CD6A /* WeatherDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BB8F16274F2B7D00F8CD6A /* WeatherDetailView.swift */; };
-		69BB8F21274FE87F00F8CD6A /* RainFall.sks in Resources */ = {isa = PBXBuildFile; fileRef = 69BB8F1F274FE87F00F8CD6A /* RainFall.sks */; };
 		69C9D720274AB61B0089D4B4 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C9D71F274AB61B0089D4B4 /* WeatherData.swift */; };
 		69F1161D274BEB8200BBF5CB /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F1161C274BEB8200BBF5CB /* LocationManager.swift */; };
 		69FA8FC12704ADBB00188E22 /* GetItDoneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FA8FC02704ADBB00188E22 /* GetItDoneApp.swift */; };
@@ -44,7 +43,6 @@
 		699213C82708FE72007293C8 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		69B0D0452734C21700FA60A8 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		69BB8F16274F2B7D00F8CD6A /* WeatherDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailView.swift; sourceTree = "<group>"; };
-		69BB8F1F274FE87F00F8CD6A /* RainFall.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainFall.sks; sourceTree = "<group>"; };
 		69C9D71F274AB61B0089D4B4 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
 		69F1161C274BEB8200BBF5CB /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		69FA8FBD2704ADBB00188E22 /* GetItDone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetItDone.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,12 +86,12 @@
 			path = Launch;
 			sourceTree = "<group>";
 		};
-		69BB8F1E274FE7F600F8CD6A /* SpriteFiles */ = {
+		69D61C1F27ACD91B002DCAA9 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				69BB8F1F274FE87F00F8CD6A /* RainFall.sks */,
+				698E8D622749DD440075B2DA /* NetworkingManager.swift */,
 			);
-			path = SpriteFiles;
+			path = Network;
 			sourceTree = "<group>";
 		};
 		69FA8FB42704ADBB00188E22 = {
@@ -115,11 +113,11 @@
 		69FA8FBF2704ADBB00188E22 /* GetItDone */ = {
 			isa = PBXGroup;
 			children = (
-				69BB8F1E274FE7F600F8CD6A /* SpriteFiles */,
-				69FA8FF92704B37F00188E22 /* Extensions */,
 				69FA8FE52704B26600188E22 /* Main */,
+				69D61C1F27ACD91B002DCAA9 /* Network */,
 				69FA8FDC2704AFEA00188E22 /* Utilities */,
 				69FA8FCE2704ADFA00188E22 /* Model */,
+				69FA8FF92704B37F00188E22 /* Extensions */,
 				69FA8FC02704ADBB00188E22 /* GetItDoneApp.swift */,
 				69FA8FC42704ADBC00188E22 /* Assets.xcassets */,
 				69FA8FC62704ADBC00188E22 /* Preview Content */,
@@ -152,7 +150,6 @@
 				69FA8FE02704B20900188E22 /* NewCheckBoxStyle.swift */,
 				69FA8FE12704B20900188E22 /* NotificationManager.swift */,
 				69FA8FDD2704B01400188E22 /* HideKeyboard.swift */,
-				698E8D622749DD440075B2DA /* NetworkingManager.swift */,
 				69F1161C274BEB8200BBF5CB /* LocationManager.swift */,
 			);
 			path = Utilities;
@@ -272,7 +269,6 @@
 				69B0D0462734C21700FA60A8 /* LaunchScreen.storyboard in Resources */,
 				690C7FD2270801930019373F /* Assets.xcassets in Resources */,
 				69FA8FC82704ADBC00188E22 /* Preview Assets.xcassets in Resources */,
-				69BB8F21274FE87F00F8CD6A /* RainFall.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,7 +431,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"GetItDone/Preview Content\"";
 				DEVELOPMENT_TEAM = ZV922PUPXL;
 				ENABLE_PREVIEWS = YES;
@@ -468,7 +464,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "\"GetItDone/Preview Content\"";
 				DEVELOPMENT_TEAM = ZV922PUPXL;
 				ENABLE_PREVIEWS = YES;

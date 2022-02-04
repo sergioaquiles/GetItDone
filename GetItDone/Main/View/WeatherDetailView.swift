@@ -29,6 +29,7 @@ struct WeatherDetailView: View {
                 HStack {
                     Image(systemName: "location.circle.fill")
                     Text(lm.location)
+                        .font(.caption)
                 }
                 .padding(.top, 15)
                 
