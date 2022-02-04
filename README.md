@@ -3,7 +3,7 @@
 Features:
 SwiftUI + CoreData + LocalNotification
 Screen Recordings
-![](Image1.gif) ![](Image2.gif) ![](Image3.gif)
+
 
 Credits:
 Images: Unsplash.com
